@@ -2,10 +2,10 @@ import {Component, OnInit} from "@angular/core";
 import {ClientService} from "../../services/client.service";
 import {FormControl, FormGroup} from "@angular/forms";
 import {Genre} from "../../models/genre";
-import {map} from "rxjs";
-import {DedupeModuleResolvePlugin} from "@angular-devkit/build-angular/src/webpack/plugins";
 import {DropdownOption} from "../../models/dropdown";
 import {Actor} from "../../models/actor";
+import {ActivatedRoute} from "@angular/router";
+import {MovieDetails} from "../../models/movieDetails";
 
 @Component({
   selector: 'app-movie-upsert',
@@ -29,25 +29,35 @@ export class MovieLibraryUpsertComponent implements OnInit{
   public actors: Actor[] = [];
 
   public genreDropdownOptions: DropdownOption<number>[] = [];
-  public actorsDropdownOptions: DropdownOption<string>[]=[];
+  public actorsDropdownOptions: DropdownOption<number>[]=[];
+
+  public movie: MovieDetails;
 
 
-  constructor(private service: ClientService) {
+  constructor(private service: ClientService, private route: ActivatedRoute) {
   }
   ngOnInit(): void {
+    let id = this.route.snapshot.paramMap.get('id');
+    if (id){
+      this.getMovie(id);
+      // get initial data
+    }
+
     this.getGenres();
+    this.getActors();
     this.initializeFrom();
   }
 
 
 
   initializeFrom(){
-    this.title = new FormControl();
-    this.releaseYear = new FormControl();
-    this.description = new FormControl();
+    this.title = new FormControl(this.movie?.title);
+    this.releaseYear = new FormControl(this.movie?.releaseYear);
+    this.description = new FormControl(this.movie?.description);
     // todo: change to genre dropdown
-    this.genreId = new FormControl();
-    this. rating = new FormControl();
+    this.genreId = new FormControl(this.movie?.genreId);
+    this. rating = new FormControl(this.movie?.rating);
+
     this.upsertMovieForm = new FormGroup({
       title: this.title,
       releaseYear: this.releaseYear,
@@ -56,6 +66,7 @@ export class MovieLibraryUpsertComponent implements OnInit{
       rating: this.rating
       // actorIds: this.actorIds
     });
+    console.log(this.movie)
   }
 
   saveEvent(formValues: any){
@@ -77,7 +88,16 @@ export class MovieLibraryUpsertComponent implements OnInit{
   }
 
   getActors(){
+    this.service.getActors()
+      .subscribe((data: Actor[]) =>
+      {
+        this.actors = data;
+        this.actors.forEach(actor => this.actorsDropdownOptions.push({value: actor.id, text: actor.name + ' ' + actor.surname}));
+      });
+  }
 
+  getMovie(id: string){
+    this.movie = this.route.snapshot.data['movie'];
   }
 
 }

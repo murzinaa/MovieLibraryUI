@@ -14,17 +14,10 @@ export class MovieLibraryDetailsComponent implements OnInit{
   }
   public movie: MovieDetails;
   private id: string;
-  public display = false;
   public actors: string;
 
   getMovie(id: string){
-    this.client.getMovieById(id)
-      .subscribe((data: MovieDetails) => {
-        this.movie = data;
-        this.display = true;
-        this.actors = this.movie.actors.map((actor) => actor.name + ' ' + actor.surname).join(', ');
-      });
-
+    this.movie = this.route.snapshot.data['movie'];
   }
 
   ngOnInit(): void {

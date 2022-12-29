@@ -5,6 +5,7 @@ import {MovieDetails} from "../models/movieDetails";
 import {Urls} from "../constants/urls";
 import {Observable} from "rxjs";
 import {Genre} from "../models/genre";
+import {Actor} from "../models/actor";
 
 @Injectable({
   providedIn: 'root'
@@ -28,8 +29,8 @@ export class ClientService{
   updateMovie(){
   }
 
-  getActors(){
-
+  getActors(): Observable<Actor[]>{
+    return this.httpClient.get<Actor[]>(Urls.getActors);
   }
 
   getGenres(): Observable<Genre[]>{

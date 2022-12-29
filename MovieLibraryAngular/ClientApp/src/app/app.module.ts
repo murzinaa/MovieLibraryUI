@@ -19,6 +19,7 @@ import {
 import {
   MovieLibraryUpsertComponent
 } from "./movie-library/components/movie-library-upsert/movie-library-upsert.component";
+import {MovieDetailsResolver} from "./movie-library/resolvers/movie-details-resolver.service";
 
 @NgModule({
   declarations: [
@@ -38,11 +39,12 @@ import {
       {path: '', component: MovieLibraryOverviewComponent, pathMatch: 'full'},
       {path: 'movie', component: MovieLibraryOverviewComponent},
       {path: 'movie/upsert', component: MovieLibraryUpsertComponent},
-      {path: 'movie/:id', component: MovieLibraryDetailsComponent}
+      {path: 'movie/upsert/:id', component: MovieLibraryUpsertComponent, resolve: {movie: MovieDetailsResolver}},
+      {path: 'movie/:id', component: MovieLibraryDetailsComponent, resolve: {movie: MovieDetailsResolver}}
     ]),
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [MovieDetailsResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
