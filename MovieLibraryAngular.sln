@@ -1,0 +1,62 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibraryAngular", "MovieLibraryAngular\MovieLibraryAngular.csproj", "{5F6D0B5C-DB59-490B-80F6-B972EE0E6610}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{D65EAC82-10D4-4F34-B1BF-03B68677F0F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.Models.Client", "MovieLibrary.Models.Client\MovieLibrary.Models.Client.csproj", "{62D1914D-B2C2-48E6-AC1E-6A5384938BCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.Models.Contracts", "MovieLibrary.Models.Contracts\MovieLibrary.Models.Contracts.csproj", "{C1CD3B04-A3FF-4C28-A033-E66E3D14CB22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.Models.Domain", "MovieLibrary.Models.Domain\MovieLibrary.Models.Domain.csproj", "{7294E72F-4B67-404D-8CDF-0F0B755CBD09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.Application", "MovieLibrary.Application\MovieLibrary.Application.csproj", "{B2190C06-B5F1-4536-AABE-27007847753A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.Infrastructure", "MovieLibrary.Infrastructure\MovieLibrary.Infrastructure.csproj", "{E91F7620-9E68-46B6-A85E-35F6BB0CD5CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5F6D0B5C-DB59-490B-80F6-B972EE0E6610}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F6D0B5C-DB59-490B-80F6-B972EE0E6610}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F6D0B5C-DB59-490B-80F6-B972EE0E6610}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F6D0B5C-DB59-490B-80F6-B972EE0E6610}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62D1914D-B2C2-48E6-AC1E-6A5384938BCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62D1914D-B2C2-48E6-AC1E-6A5384938BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62D1914D-B2C2-48E6-AC1E-6A5384938BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62D1914D-B2C2-48E6-AC1E-6A5384938BCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1CD3B04-A3FF-4C28-A033-E66E3D14CB22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1CD3B04-A3FF-4C28-A033-E66E3D14CB22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1CD3B04-A3FF-4C28-A033-E66E3D14CB22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1CD3B04-A3FF-4C28-A033-E66E3D14CB22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7294E72F-4B67-404D-8CDF-0F0B755CBD09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7294E72F-4B67-404D-8CDF-0F0B755CBD09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7294E72F-4B67-404D-8CDF-0F0B755CBD09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7294E72F-4B67-404D-8CDF-0F0B755CBD09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2190C06-B5F1-4536-AABE-27007847753A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2190C06-B5F1-4536-AABE-27007847753A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2190C06-B5F1-4536-AABE-27007847753A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2190C06-B5F1-4536-AABE-27007847753A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E91F7620-9E68-46B6-A85E-35F6BB0CD5CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E91F7620-9E68-46B6-A85E-35F6BB0CD5CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E91F7620-9E68-46B6-A85E-35F6BB0CD5CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E91F7620-9E68-46B6-A85E-35F6BB0CD5CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12A2ED4E-F18D-48CB-8275-91AABB276243}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{62D1914D-B2C2-48E6-AC1E-6A5384938BCC} = {D65EAC82-10D4-4F34-B1BF-03B68677F0F7}
+		{C1CD3B04-A3FF-4C28-A033-E66E3D14CB22} = {D65EAC82-10D4-4F34-B1BF-03B68677F0F7}
+		{7294E72F-4B67-404D-8CDF-0F0B755CBD09} = {D65EAC82-10D4-4F34-B1BF-03B68677F0F7}
+	EndGlobalSection
+EndGlobal

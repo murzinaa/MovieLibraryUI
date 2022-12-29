@@ -1,0 +1,22 @@
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.parent {
+  display: flex;
+  flex-wrap: wrap;
+}
+.child{
+  /*
+  All you need to do this play with this number (343) according to aviable width and item width
+  Formula: (ParentWidth / 3) - margin (ParentWidth divide by 3 subtracte by margin[if you want e.g in my case i set 10] )
+
+  Stackoverflow Run Code Snippet width = 633.82px (not sure)
+  Margin = 10px
+
+  */
+  flex: 0 0 192px; /* play with this number */
+  background: red;
+  margin: 10px;
+}

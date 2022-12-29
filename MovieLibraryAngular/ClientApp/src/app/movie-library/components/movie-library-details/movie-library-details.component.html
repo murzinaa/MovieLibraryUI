@@ -1,0 +1,30 @@
+<div *ngIf="display" class="container" style="display: flex;">
+  <div style="width: 50%; margin-right: 50px;">
+    <img src="{{movie.imageUrl ?? 'https://media.istockphoto.com/id/1216251206/vector/no-image-available-icon.jpg?b=1&s=170667a&w=0&k=20&c=MiWLEcUdxZONMlnsN_k5OCaz_nLviJB0Hvcz5Wlp5oI='}}" alt="{{movie.title}}" width="500" height="700"/>
+  </div>
+
+  <div style="flex-grow: 1">
+    <h3 style="text-align: center">Movie Details</h3>
+    <hr><br><br>
+    <div class="row justify-content-md-cente">
+      <div class="col-sm-3">Title: </div>
+      <br><br>
+      <div class="col-sm-8">{{movie.title}}</div><br><br>
+      <div class="col-sm-3">Release Year: </div><br><br>
+      <div class="col-sm-8">{{movie.releaseYear}}</div><br><br>
+      <div class="col-sm-3">Genre: </div><br><br>
+      <div class="col-sm-8">{{movie.genreId}}</div><br><br>
+      <div class="col-sm-3">Rating: </div><br><br>
+      <div class="col-sm-8">{{movie.rating}}</div><br><br>
+      <div class="col-sm-3">Description: </div><br><br>
+      <div class="col-sm-8">{{movie.description}}</div><br><br><br><br>
+      <div class="col-sm-3">Actors:</div><br><br>
+      <div class="col-sm-8">{{actors}}</div><br><br>
+      </div>
+    <br><br><br>
+    <button type="button" class="btn btn-default">Edit</button>
+    <button type="button" class="btn btn-danger">Delete</button>
+    </div>
+  </div>
+
+

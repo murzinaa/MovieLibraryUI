@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MovieLibrary.Models.Client\MovieLibrary.Models.Client.csproj" />
+      <ProjectReference Include="..\MovieLibrary.Models.Domain\MovieLibrary.Models.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

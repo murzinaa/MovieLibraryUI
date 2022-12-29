@@ -1,0 +1,40 @@
+<div class="col-md-12">
+  <h3>{{isANewMovie ? 'Add A New Movie' : 'EditMovie'}}</h3>
+  hi
+</div>
+<div class="col-md-6">
+  <form [formGroup]="upsertMovieForm"  (ngSubmit)="saveEvent(upsertMovieForm.value)" autocomplete="off" *ngIf="upsertMovieForm">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input formControlName="title" id="title" type="text" class="form-control" placeholder="Enter movie title" />
+    </div>
+    <div class="form-group">
+      <label for="releaseYear">Release Year:</label>
+      <input formControlName="releaseYear"  id="releaseYear" type="number" class="form-control" placeholder="Enter release year" />
+    </div>
+    <div class="form-group">
+      <label for="genreId">Genre:</label>
+      <input formControlName="genreId"  id="genreId" type="text" class="form-control" placeholder="Enter movie genre" />
+    </div>
+    <div class="form-group">
+      <label for="rating">Rating:</label>
+      <input formControlName="rating"  id="rating" type="number" class="form-control" placeholder="Enter rating" />
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input  formControlName="description" id="description" type="text" class="form-control" placeholder="Enter description" />
+    </div>
+
+    <div class="form-group">
+      <label for="actors">
+        Actors:
+      </label>
+      <select class="form-controlt" id="actors">
+        <option  *ngFor="let option of genreDropdownOptions" [ngValue]="option.value">{{option.text}}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" [disabled]="false" class="btn btn-default" (click)="cancel()">Cancel</button>
+  </form>
+</div>
