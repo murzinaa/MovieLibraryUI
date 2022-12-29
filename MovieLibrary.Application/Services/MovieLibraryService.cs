@@ -41,4 +41,11 @@ public class MovieLibraryService : IMovieLibraryService
         var genres = await _movieClient.GetGenres(new GetGenresRequest());
         return _mapper.Map<List<Genre>>(genres.Genres);
     }
+
+    public async Task<List<Actor>> GetActors()
+    {
+
+        var actors = await _movieClient.GetActors(new GetActorsRequest());
+        return _mapper.Map<List<Actor>>(actors.Actors);
+    }
 }

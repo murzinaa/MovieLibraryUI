@@ -1,6 +1,5 @@
 <div class="col-md-12">
   <h3>{{isANewMovie ? 'Add A New Movie' : 'EditMovie'}}</h3>
-  hi
 </div>
 <div class="col-md-6">
   <form [formGroup]="upsertMovieForm"  (ngSubmit)="saveEvent(upsertMovieForm.value)" autocomplete="off" *ngIf="upsertMovieForm">

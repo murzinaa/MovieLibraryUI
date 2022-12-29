@@ -2,6 +2,6 @@
 {
     public class GetActorsRequest
     {
-        public const string Route = "/actors";
+        public string GetRoute() => "/actors";
     }
 }

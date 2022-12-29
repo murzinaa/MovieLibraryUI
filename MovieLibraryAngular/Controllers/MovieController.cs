@@ -39,4 +39,11 @@ public class MovieController : ControllerBase
         var genres = await _movieService.GetGenres();
         return _mapper.Map<List<Genre>>(genres);
     }
+
+    [HttpGet("actors")]
+    public async Task<List<Actor>> GetActors()
+    {
+        var actors = await _movieService.GetActors();
+        return _mapper.Map<List<Actor>>(actors);
+    }
 }

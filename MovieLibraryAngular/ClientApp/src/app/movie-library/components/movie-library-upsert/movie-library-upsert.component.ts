@@ -5,6 +5,7 @@ import {Genre} from "../../models/genre";
 import {map} from "rxjs";
 import {DedupeModuleResolvePlugin} from "@angular-devkit/build-angular/src/webpack/plugins";
 import {DropdownOption} from "../../models/dropdown";
+import {Actor} from "../../models/actor";
 
 @Component({
   selector: 'app-movie-upsert',
@@ -15,6 +16,7 @@ import {DropdownOption} from "../../models/dropdown";
 export class MovieLibraryUpsertComponent implements OnInit{
 
   public isANewMovie: boolean = true;
+
   public upsertMovieForm: FormGroup;
   public title: FormControl;
   public releaseYear: FormControl;
@@ -22,8 +24,13 @@ export class MovieLibraryUpsertComponent implements OnInit{
   public genreId: FormControl;
   public rating: FormControl;
   public actorIds: FormControl;
+
   public genres: Genre[] = [];
+  public actors: Actor[] = [];
+
   public genreDropdownOptions: DropdownOption<number>[] = [];
+  public actorsDropdownOptions: DropdownOption<string>[]=[];
+
 
   constructor(private service: ClientService) {
   }
@@ -52,6 +59,7 @@ export class MovieLibraryUpsertComponent implements OnInit{
   }
 
   saveEvent(formValues: any){
+    // todo: implement save event
       console.log(formValues)
   }
 
@@ -65,10 +73,11 @@ export class MovieLibraryUpsertComponent implements OnInit{
       {
         this.genres = data;
         this.genres.forEach(genre => this.genreDropdownOptions.push({value: genre.id, text: genre.value}));
-        console.log(data);
-        console.log(this.genres);
-        console.log(this.genreDropdownOptions);
       });
+  }
+
+  getActors(){
+
   }
 
 }

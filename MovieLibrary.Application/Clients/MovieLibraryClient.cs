@@ -54,4 +54,10 @@ public class MovieLibraryClient : IMovieLibraryClient
         var response = await _client.Call<GetGenresRequest, GetGenresResponse>(request, request.GetRoute(), HttpMethod.Get);
         return response;
     }
+
+    public async Task<GetActorsResponse> GetActors(GetActorsRequest request)
+    {
+        var response = await _client.Call<GetActorsRequest, GetActorsResponse>(request, request.GetRoute(), HttpMethod.Get);
+        return response;
+    }
 }

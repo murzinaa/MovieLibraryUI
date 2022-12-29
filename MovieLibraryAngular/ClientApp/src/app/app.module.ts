@@ -6,9 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
+
 import {
   MovieLibraryOverviewComponent
 } from "./movie-library/components/movie-library-overview/movie-library-overview.component";
@@ -26,9 +24,6 @@ import {
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     MovieLibraryOverviewComponent,
     MovieLibraryDetailsComponent,
     MovieLibrarySearchComponent,
@@ -40,9 +35,7 @@ import {
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      {path: '', component: HomeComponent, pathMatch: 'full'},
-      {path: 'counter', component: CounterComponent},
-      {path: 'fetch-data', component: FetchDataComponent},
+      {path: '', component: MovieLibraryOverviewComponent, pathMatch: 'full'},
       {path: 'movie', component: MovieLibraryOverviewComponent},
       {path: 'movie/upsert', component: MovieLibraryUpsertComponent},
       {path: 'movie/:id', component: MovieLibraryDetailsComponent}
