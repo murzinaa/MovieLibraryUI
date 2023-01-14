@@ -20,6 +20,7 @@ import {
   MovieLibraryUpsertComponent
 } from "./movie-library/components/movie-library-upsert/movie-library-upsert.component";
 import {MovieDetailsResolver} from "./movie-library/resolvers/movie-details-resolver.service";
+import {AddActorComponent} from "./movie-library/components/movie-library-upsert/add-actor/add-actor.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {MovieDetailsResolver} from "./movie-library/resolvers/movie-details-reso
     MovieLibraryOverviewComponent,
     MovieLibraryDetailsComponent,
     MovieLibrarySearchComponent,
-    MovieLibraryUpsertComponent
+    MovieLibraryUpsertComponent,
+    AddActorComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -42,10 +44,11 @@ import {MovieDetailsResolver} from "./movie-library/resolvers/movie-details-reso
       {path: 'movie/upsert/:id', component: MovieLibraryUpsertComponent, resolve: {movie: MovieDetailsResolver}},
       {path: 'movie/:id', component: MovieLibraryDetailsComponent, resolve: {movie: MovieDetailsResolver}}
     ]),
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [MovieDetailsResolver],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: []
 })
 export class AppModule { }
 

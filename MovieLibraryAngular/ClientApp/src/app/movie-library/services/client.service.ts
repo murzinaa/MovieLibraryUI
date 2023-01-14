@@ -1,11 +1,13 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {MovieOverview} from "../models/movieOverview";
 import {MovieDetails} from "../models/movieDetails";
 import {Urls} from "../constants/urls";
 import {Observable} from "rxjs";
 import {Genre} from "../models/genre";
 import {Actor} from "../models/actor";
+import {AddMovie} from "../models/addMovie";
+import {EditMovie} from "../models/editMovie";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,9 @@ export class ClientService{
   constructor(private httpClient: HttpClient) {
   }
 
+  private readonly httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  }
   getMovies(): Observable<MovieOverview[]>{
     return this.httpClient.get<MovieOverview[]>(Urls.moviesOverview);
   }
@@ -22,11 +27,12 @@ export class ClientService{
     return this.httpClient.get<MovieDetails>(Urls.movieDetails.replace(':id', id));
   }
 
-  createMovie(){
-
+  createMovie(movie: AddMovie): Observable<number>{
+    return this.httpClient.post<number>(Urls.upsertMovie, movie, this.httpOptions);
   }
 
-  updateMovie(){
+  updateMovie(movie: EditMovie){
+    return this.httpClient.put(Urls.upsertMovie, movie, this.httpOptions);
   }
 
   getActors(): Observable<Actor[]>{
@@ -35,5 +41,9 @@ export class ClientService{
 
   getGenres(): Observable<Genre[]>{
     return this.httpClient.get<Genre[]>(Urls.getGenres);
+  }
+
+  addActor(actor: Actor): Observable<number>{
+    return this.httpClient.post<number>(Urls.createActor, actor, this.httpOptions);
   }
 }

@@ -14,5 +14,9 @@ public interface IMovieLibraryService
 
     public Task<List<Actor>> GetActors();
 
+    public Task<int> AddActor(Actor actor);
 
+    public Task<int> CreateMovie(CreateMovie movie);
+
+    public Task UpdateMovie(UpdateMovie movie);
 }

@@ -2,8 +2,6 @@
 {
     public class GetAllMoviesRequest
     {
-        public const string Route = "/movie/all";
-
-        public string GetRoute() => Route;
+        public readonly string Route = "/movie/all";
     }
 }

@@ -4,7 +4,7 @@ namespace MovieLibrary.Models.Client
 {
     public class UpdateMovieRequest
     {
-        public const string Route = "/movie";
+        public readonly string Route = "/movie";
         
         public int Id { get; set; }
 

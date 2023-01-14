@@ -48,4 +48,23 @@ public class MovieLibraryService : IMovieLibraryService
         var actors = await _movieClient.GetActors(new GetActorsRequest());
         return _mapper.Map<List<Actor>>(actors.Actors);
     }
+
+    public async Task<int> AddActor(Actor actor)
+    { 
+        var request = _mapper.Map<AddActorRequest>(actor);
+        var response = await _movieClient.AddActor(request);
+        return response.Id;
+    }
+
+    public async Task<int> CreateMovie(CreateMovie movie)
+    {
+        var request = _mapper.Map<CreateMovieRequest>(movie);
+        return await _movieClient.CreateMovie(request);
+    }
+
+    public async Task UpdateMovie(UpdateMovie movie)
+    {
+        var request = _mapper.Map<UpdateMovieRequest>(movie);
+        await _movieClient.UpdateMovie(request);
+    }
 }

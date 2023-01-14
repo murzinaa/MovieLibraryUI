@@ -1,21 +1,28 @@
 import {Component, OnInit} from "@angular/core";
 import {ClientService} from "../../services/client.service";
-import {FormControl, FormGroup} from "@angular/forms";
-import {Genre} from "../../models/genre";
+import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {DropdownOption} from "../../models/dropdown";
 import {Actor} from "../../models/actor";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MovieDetails} from "../../models/movieDetails";
+import {AddMovie} from "../../models/addMovie";
+import {AddActorComponent} from "./add-actor/add-actor.component";
+import {finalize, forkJoin} from "rxjs";
+import {EditMovie} from "../../models/editMovie";
 
 @Component({
   selector: 'app-movie-upsert',
   templateUrl: 'movie-library-upsert.component.html',
-  providers: [ClientService]
+  providers: [ClientService],
+  styleUrls: ['movie-library-upsert.component.css']
 })
 
-export class MovieLibraryUpsertComponent implements OnInit{
-
+export class MovieLibraryUpsertComponent implements OnInit {
   public isANewMovie: boolean = true;
+  public isANewActor: boolean = true;
+  public showActorsSection: boolean = false;
+  public showAddActorsSection: boolean = false;
+  public showDropdown: boolean = true;
 
   public upsertMovieForm: FormGroup;
   public title: FormControl;
@@ -23,81 +30,188 @@ export class MovieLibraryUpsertComponent implements OnInit{
   public description: FormControl;
   public genreId: FormControl;
   public rating: FormControl;
-  public actorIds: FormControl;
+  public actorsFormArray: FormArray;
 
-  public genres: Genre[] = [];
   public actors: Actor[] = [];
 
   public genreDropdownOptions: DropdownOption<number>[] = [];
-  public actorsDropdownOptions: DropdownOption<number>[]=[];
+  public actorsDropdownOptions: DropdownOption<number>[] = [];
 
   public movie: MovieDetails;
+  public selectedActorIds: number[] = [];
 
+  public movieId: string | null;
 
-  constructor(private service: ClientService, private route: ActivatedRoute) {
+  constructor(private service: ClientService, private route: ActivatedRoute, private fb: FormBuilder, private router: Router) {
   }
+
   ngOnInit(): void {
-    let id = this.route.snapshot.paramMap.get('id');
-    if (id){
-      this.getMovie(id);
-      // get initial data
+    // todo: move to initializeFrom method?
+    this.movieId = this.route.snapshot.paramMap.get('id');
+    if (this.movieId) {
+      this.getMovie(this.movieId);
+      this.isANewMovie = false;
     }
-
-    this.getGenres();
-    this.getActors();
-    this.initializeFrom();
+    this.setInitialData();
   }
 
+  get actorArray(): FormGroup[] {
+    const array = this.upsertMovieForm?.get('actorsFormArray') as FormArray;
+    return array.controls as FormGroup[];
+  }
 
+  private setInitialData() {
+    const getActors = this.service.getActors();
+    const getGenres = this.service.getGenres();
 
-  initializeFrom(){
+    forkJoin([getActors, getGenres]).subscribe(results => {
+      this.actors = results[0];
+      this.actors.forEach(actor => {
+        this.actorsDropdownOptions.push({value: actor.id, text: actor.name + ' ' + actor.surname});
+      });
+      this.actorsDropdownOptions = this.actorsDropdownOptions.filter(x => !this.selectedActorIds.includes(x.value));
+
+      results[1].forEach(genre => this.genreDropdownOptions.push({value: genre.id, text: genre.value}));
+
+      this.initializeFrom();
+    })
+  }
+
+  private initializeFrom() {
     this.title = new FormControl(this.movie?.title);
     this.releaseYear = new FormControl(this.movie?.releaseYear);
     this.description = new FormControl(this.movie?.description);
-    // todo: change to genre dropdown
-    this.genreId = new FormControl(this.movie?.genreId);
-    this. rating = new FormControl(this.movie?.rating);
+    this.genreId = new FormControl(this.genreDropdownOptions.find(x => x.value == this.movie?.genreId)?.value);
+    this.rating = new FormControl(this.movie?.rating);
+    this.actorsFormArray = this.fb.array([]);
 
-    this.upsertMovieForm = new FormGroup({
+    if (this.movie?.actors) {
+      this.movie.actors.forEach(actor => {
+        this.actorsFormArray.push(AddActorComponent.addActorInfoItem(actor.name, actor.surname, actor.age, actor.id));
+      });
+      this.showActorsSection = true;
+    }
+
+    this.upsertMovieForm = this.fb.group({
       title: this.title,
       releaseYear: this.releaseYear,
       description: this.description,
       genreId: this.genreId,
-      rating: this.rating
-      // actorIds: this.actorIds
+      rating: this.rating,
+      actorsFormArray: this.actorsFormArray,
+      actorId: new FormControl()
     });
-    console.log(this.movie)
+
+    this.actorsFormArray?.disable();
   }
 
-  saveEvent(formValues: any){
-    // todo: implement save event
-      console.log(formValues)
+  saveForm() {
+    if (this.isANewMovie) {
+      this.saveNewMovie()
+    } else {
+      this.updateMovie();
+    }
   }
 
-  cancel(){
-      // todo: implement the method
+  saveNewMovie() {
+    const actorForm = this.actorsFormArray.getRawValue();
+    const movie = new AddMovie();
+
+    movie.title = this.title.value;
+    movie.rating = this.rating.value;
+    movie.releaseYear = this.releaseYear.value;
+    movie.genreId = this.genreId.value;
+    movie.imageUrl = "";
+    movie.actorIds = [];
+    movie.description = this.description.value;
+
+    actorForm.forEach(actor => {
+      movie.actorIds.push(actor.id);
+    })
+
+    this.service.createMovie(movie).subscribe(id => {
+      this.router.navigate([`/movie/${id}`]);
+    });
   }
 
-  getGenres(){
-    this.service.getGenres()
-      .subscribe((data: Genre[]) =>
-      {
-        this.genres = data;
-        this.genres.forEach(genre => this.genreDropdownOptions.push({value: genre.id, text: genre.value}));
-      });
+  updateMovie() {
+    const actorForm = this.actorsFormArray.getRawValue();
+    const updateMovie = new EditMovie();
+
+    updateMovie.id = +this.movieId!;
+    updateMovie.title = this.title.value;
+    updateMovie.rating = this.rating.value;
+    updateMovie.releaseYear = this.releaseYear.value;
+    updateMovie.genreId = this.genreId.value;
+    updateMovie.actorIds = [];
+    updateMovie.description = this.description.value;
+    actorForm.forEach(actor => {
+      updateMovie.actorIds.push(actor.id);
+    })
+
+    this.service.updateMovie(updateMovie).subscribe(() => {
+      this.router.navigate([`/movie/${this.movieId}`]);
+    });
   }
 
-  getActors(){
-    this.service.getActors()
-      .subscribe((data: Actor[]) =>
-      {
-        this.actors = data;
-        this.actors.forEach(actor => this.actorsDropdownOptions.push({value: actor.id, text: actor.name + ' ' + actor.surname}));
-      });
+  cancel() {
+    // todo: implement the method
   }
 
-  getMovie(id: string){
+  getMovie(id: string) {
     this.movie = this.route.snapshot.data['movie'];
+    this.movie.actors.forEach(actor => {
+      this.selectedActorIds.push(actor.id);
+    });
   }
 
+  addActor() {
+    this.actorsFormArray.push(AddActorComponent.addActorInfoItem('', '', 0, 0))
+    this.showDropdown = false;
+  }
+
+  onOptionSelected() {
+    const id = this.upsertMovieForm.controls.actorId.value;
+    const data = this.actors.find(x => x.id == id);
+    if (data) {
+      this.actorsFormArray.push(AddActorComponent.addActorInfoItem(data.name, data.surname, data.age, data.id));
+      this.actorsFormArray.at(-1).disable();
+      this.selectedActorIds.push(id);
+    }
+    this.actorsDropdownOptions = this.actorsDropdownOptions.filter(x => !this.selectedActorIds.includes(x.value));
+  }
+
+  saveActor(form: FormGroup, index: number) {
+    const actor = new Actor();
+    actor.name = form.controls.firstName.value;
+    actor.surname = form.controls.lastName.value;
+    actor.age = form.controls.age.value;
+
+    // what if we don't pass an id??
+    actor.id = 0;
+    this.service.addActor(actor).subscribe(id => {
+      this.actorsFormArray.at(index).patchValue({
+        firstName: form.controls.firstName.value,
+        lastName: form.controls.lastName.value,
+        age: form.controls.age.value,
+        id: id
+      });
+    });
+
+    this.actorsFormArray.at(index).disable();
+  }
+
+  showAddActorFunctionality() {
+    this.showAddActorsSection = true;
+  }
+
+  removeActor(index: number) {
+    const actor = this.actorsFormArray.at(index).value;
+    const actorId = actor.id;
+
+    this.selectedActorIds = this.selectedActorIds.filter(x => x !== actorId);
+    this.actorsDropdownOptions.push({value: actorId, text: actor.firstName + actor.lastName});
+    this.actorsFormArray.removeAt(index);
+    this.isANewActor = false;
+  }
 }

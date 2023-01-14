@@ -1,39 +1,67 @@
 <div class="col-md-12">
-  <h3>{{isANewMovie ? 'Add A New Movie' : 'EditMovie'}}</h3>
+  <h3>{{isANewMovie ? 'Add A New Movie' : 'Edit Movie'}}</h3>
 </div>
-<div class="col-md-6">
-  <form [formGroup]="upsertMovieForm"  (ngSubmit)="saveEvent(upsertMovieForm.value)" autocomplete="off" *ngIf="upsertMovieForm">
+<div>
+  <form *ngIf="upsertMovieForm" [formGroup]="upsertMovieForm" (ngSubmit)="saveForm()" autocomplete="off">
     <div class="form-group">
       <label for="title">Title:</label>
-      <input formControlName="title" id="title" type="text" class="form-control" placeholder="Enter movie title" />
+      <input formControlName="title" id="title" type="text" class="form-control" placeholder="Enter movie title"/>
     </div>
     <div class="form-group">
       <label for="releaseYear">Release Year:</label>
-      <input formControlName="releaseYear"  id="releaseYear" type="number" class="form-control" placeholder="Enter release year" />
+      <input formControlName="releaseYear" id="releaseYear" type="number" class="form-control" placeholder="Enter release year"/>
     </div>
     <div class="form-group">
       <label for="genreId">Genre:</label>
-      <input formControlName="genreId"  id="genreId" type="text" class="form-control" placeholder="Enter movie genre" />
+      <select id="genreId" name="genreId" (ngModelChange)="onOptionSelected()" formControlName="genreId">
+        <option *ngFor="let genre of genreDropdownOptions" [value]="genre.value">{{genre.text}}</option>
+      </select>
     </div>
     <div class="form-group">
       <label for="rating">Rating:</label>
-      <input formControlName="rating"  id="rating" type="number" class="form-control" placeholder="Enter rating" />
+      <input formControlName="rating" id="rating" type="number" class="form-control" placeholder="Enter rating"/>
     </div>
     <div class="form-group">
       <label for="description">Description:</label>
-      <input  formControlName="description" id="description" type="text" class="form-control" placeholder="Enter description" />
+      <textarea formControlName="description" id="description" type="text" class="form-control"
+             placeholder="Enter description"></textarea>
     </div>
+    <div>
+      <!-- show existing/added actors -->
+      <div *ngIf="true" style="margin-top: 20px">
+        <h5 style="text-align: center">
+          Actors:
+        </h5>
+        <hr>
+        <div *ngFor="let actorForm of actorArray; let i = index">
 
-    <div class="form-group">
-      <label for="actors">
-        Actors:
-      </label>
-      <select class="form-controlt" id="actors">
-        <option  *ngFor="let option of actorsDropdownOptions" [ngValue]="option.value">{{option.text}}</option>
-      </select>
+          <app-add-actor [isANewActor]="!actorForm.disabled"
+                         [addActorForm]="actorForm"
+                         [index]="i"
+                         (newActorEvent)="saveActor($event, i)"
+                         (removeActorEvent)="removeActor($event)">
+          </app-add-actor>
+
+        </div>
+
+      </div>
+      <button *ngIf="!showAddActorsSection" type="button" class="btn btn-primary"
+              (click)="showAddActorFunctionality()">Add Actor
+      </button>
+      <div *ngIf="showAddActorsSection">
+        You can either choose an actor from dropdown or
+        <button type="button" class="text-button" (click)="addActor()">add a new actor</button>
+        <br>
+        <select *ngIf="showDropdown" formControlName="actorId" (change)="onOptionSelected()">
+          <option></option>
+          <option *ngFor="let actor of actorsDropdownOptions" [ngValue]="actor.value">{{actor.text}}</option>
+        </select>
+      </div>
     </div>
-
+    <br>
     <button type="submit" class="btn btn-primary">Save</button>
     <button type="button" [disabled]="false" class="btn btn-default" (click)="cancel()">Cancel</button>
   </form>
 </div>
+
+

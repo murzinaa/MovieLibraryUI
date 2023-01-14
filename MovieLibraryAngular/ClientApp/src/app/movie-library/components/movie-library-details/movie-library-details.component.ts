@@ -18,6 +18,8 @@ export class MovieLibraryDetailsComponent implements OnInit{
 
   getMovie(id: string){
     this.movie = this.route.snapshot.data['movie'];
+    console.log(this.movie);
+    console.log(this.route.snapshot.data['movie'])
   }
 
   ngOnInit(): void {

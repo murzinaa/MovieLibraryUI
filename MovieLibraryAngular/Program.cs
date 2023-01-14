@@ -26,6 +26,8 @@ public class Program
         {
             typeof(DomainToContract).Assembly,
             typeof(ClientToDomainProfile).Assembly,
+            typeof(DomainToClientProfile).Assembly,
+            typeof(ContractToDomainProfile).Assembly
         });
 
         var app = builder.Build();
@@ -45,9 +47,6 @@ public class Program
         {
             endpoints.MapControllers();
         });
-        /*app.MapControllerRoute(
-            name: "default",
-            pattern: "{controller}/{action=Index}/{id?}");*/
 
         app.MapFallbackToFile("index.html");
 

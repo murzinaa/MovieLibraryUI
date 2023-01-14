@@ -1,7 +1,10 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MovieLibrary.Infrastructure.Services;
-using MovieLibrary.Models.Contracts.Models;
+using MovieLibrary.Models.Contracts;
+using MovieLibrary.Models.Domain;
+using Actor = MovieLibrary.Models.Contracts.Models.Actor;
+using Genre = MovieLibrary.Models.Contracts.Models.Genre;
 using Movie = MovieLibrary.Models.Contracts.Models.Movie;
 
 namespace MovieLibraryAngular.Controllers;
@@ -45,5 +48,26 @@ public class MovieController : ControllerBase
     {
         var actors = await _movieService.GetActors();
         return _mapper.Map<List<Actor>>(actors);
+    }
+
+    [HttpPost("actor")]
+    public async Task<int> AddActor(AddActorRequest request)
+    {
+        var actorRequest = _mapper.Map<MovieLibrary.Models.Domain.Actor>(request);
+        return await _movieService.AddActor(actorRequest);
+    }
+
+    [HttpPut]
+    public async Task UpdateMovie(UpdateMovieRequest request)
+    {
+        var updateMovieRequest = _mapper.Map<UpdateMovie>(request);
+        await _movieService.UpdateMovie(updateMovieRequest);
+    }
+
+    [HttpPost]
+    public async Task<int> CreateMovie(CreateMovieRequest request)
+    {
+        var movie = _mapper.Map<CreateMovie>(request);
+        return await _movieService.CreateMovie(movie);
     }
 }

@@ -2,6 +2,6 @@
 {
     public class GetActorsRequest
     {
-        public string GetRoute() => "/actors";
+        public readonly string Route = "/actors";
     }
 }
