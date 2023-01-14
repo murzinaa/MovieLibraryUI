@@ -8,7 +8,6 @@ namespace MovieLibrary.Application.Helpers;
 
 public static class HttpClientBase
 {
-    // todo: add new call func without return parameter
     public static async Task<T2> Call<T, T2>(this HttpClient httpClient, T request, string route, HttpMethod method)
     {
         string serializedRequest = SerializeObject(request);

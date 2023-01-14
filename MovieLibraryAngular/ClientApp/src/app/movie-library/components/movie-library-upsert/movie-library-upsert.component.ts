@@ -46,7 +46,6 @@ export class MovieLibraryUpsertComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // todo: move to initializeFrom method?
     this.movieId = this.route.snapshot.paramMap.get('id');
     if (this.movieId) {
       this.getMovie(this.movieId);
@@ -156,6 +155,8 @@ export class MovieLibraryUpsertComponent implements OnInit {
 
   cancel() {
     // todo: implement the method
+    const returnUrl = this.isANewMovie ? '/movie' : `/movie/${this.movieId}`;
+    this.router.navigate([returnUrl]);
   }
 
   getMovie(id: string) {
@@ -168,6 +169,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
   addActor() {
     this.actorsFormArray.push(AddActorComponent.addActorInfoItem('', '', 0, 0))
     this.showDropdown = false;
+    this.showAddActorsSection = false;
   }
 
   onOptionSelected() {
@@ -179,6 +181,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
       this.selectedActorIds.push(id);
     }
     this.actorsDropdownOptions = this.actorsDropdownOptions.filter(x => !this.selectedActorIds.includes(x.value));
+    this.showAddActorsSection = false;
   }
 
   saveActor(form: FormGroup, index: number) {
@@ -203,6 +206,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
 
   showAddActorFunctionality() {
     this.showAddActorsSection = true;
+    this.showDropdown = true;
   }
 
   removeActor(index: number) {
