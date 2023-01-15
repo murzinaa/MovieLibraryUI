@@ -23,10 +23,10 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<Movie>> GetMovies([FromQuery] int pageNumber = 1, [FromQuery]int pageSize = 20)
+    public async Task<GetAllMoviesResponse> GetMovies([FromQuery] int pageNumber = 1, [FromQuery]int pageSize = 20)
     {
         var movies = await _movieService.GetAllMovies(pageNumber, pageSize); 
-        return _mapper.Map<List<Movie>>(movies.Movies);
+        return _mapper.Map<GetAllMoviesResponse>(movies);
     }
 
     [HttpGet("{id}")]

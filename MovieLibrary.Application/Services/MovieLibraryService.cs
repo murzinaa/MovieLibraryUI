@@ -19,9 +19,15 @@ public class MovieLibraryService : IMovieLibraryService
         _mapper = mapper;
     }
 
-    public async Task<GetAllMovies> GetAllMovies()
+    public async Task<GetAllMovies> GetAllMovies(int pageNumber, int pageSize)
     {
-        var movies = await _movieClient.GetAllMovies(new GetAllMoviesRequest());
+        var request = new GetAllMoviesRequest
+        {
+            PageNumber = pageNumber,
+            PageSize = pageSize
+        };
+        var movies = await _movieClient.GetAllMovies(request);
+        
         return _mapper.Map<GetAllMovies>(movies);
     }
 

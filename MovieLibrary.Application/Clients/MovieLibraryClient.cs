@@ -41,7 +41,7 @@ public class MovieLibraryClient : IMovieLibraryClient
 
     public async Task<GetAllMoviesResponse> GetAllMovies(GetAllMoviesRequest request)
     {
-        var response = await _client.Call<GetAllMoviesRequest, GetAllMoviesResponse>(request, request.Route, HttpMethod.Get);
+        var response = await _client.Call<GetAllMoviesRequest, GetAllMoviesResponse>(request, request.GetRoute(), HttpMethod.Get);
         return response;
     }
 

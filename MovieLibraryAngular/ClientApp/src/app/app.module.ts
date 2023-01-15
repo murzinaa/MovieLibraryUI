@@ -18,6 +18,7 @@ import {MovieLibraryUpsertComponent}
 import {MovieDetailsResolver} from "./movie-library/resolvers/movie-details-resolver.service";
 import {ActorFormComponent} from "./movie-library/components/actor-form/actor-form.component";
 import {MovieFormComponent} from "./movie-library/components/movie-form/movie-form.component";
+import {NgxPaginationModule} from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {MovieFormComponent} from "./movie-library/components/movie-form/movie-fo
       {path: 'movie/upsert/:id', component: MovieLibraryUpsertComponent, resolve: {movie: MovieDetailsResolver}},
       {path: 'movie/:id', component: MovieLibraryDetailsComponent, resolve: {movie: MovieDetailsResolver}}
     ]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   providers: [MovieDetailsResolver],
   bootstrap: [AppComponent],

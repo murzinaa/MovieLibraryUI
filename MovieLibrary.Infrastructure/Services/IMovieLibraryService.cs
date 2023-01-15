@@ -6,7 +6,7 @@ namespace MovieLibrary.Infrastructure.Services;
 
 public interface IMovieLibraryService
 {
-    public Task<GetAllMovies> GetAllMovies();
+    public Task<GetAllMovies> GetAllMovies(int pageNumber, int pageSize);
     
     public Task<Movie> GetMovieById(int id);
 

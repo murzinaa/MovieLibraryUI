@@ -1,4 +1,4 @@
-export class MovieOverview {
+export class Movie{
   public id: number;
   public title: string;
   public description?: string;

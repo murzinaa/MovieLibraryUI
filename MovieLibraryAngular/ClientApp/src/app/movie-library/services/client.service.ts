@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {MovieOverview} from "../models/movieOverview";
 import {MovieDetails} from "../models/movieDetails";
 import {Urls} from "../constants/urls";
 import {Observable} from "rxjs";
@@ -8,6 +7,7 @@ import {Genre} from "../models/genre";
 import {Actor} from "../models/actor";
 import {AddMovie} from "../models/addMovie";
 import {EditMovie} from "../models/editMovie";
+import {MovieOverview} from "../models/movie-overview/movie-overview";
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +19,8 @@ export class ClientService{
   private readonly httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   }
-  getMovies(): Observable<MovieOverview[]>{
-    return this.httpClient.get<MovieOverview[]>(Urls.moviesOverview);
+  getMovies(pageNumber: number, pageSize: number): Observable<MovieOverview>{
+    return this.httpClient.get<MovieOverview>(Urls.moviesOverview + `?PageNumber=${pageNumber}&PageSize=${pageSize}`);
   }
 
   getMovieById(id: string): Observable<MovieDetails>{
