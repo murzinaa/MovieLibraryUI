@@ -5,4 +5,5 @@ export class Urls{
   public static readonly getActors = 'api/movie/actors';
   public static readonly upsertMovie = 'api/movie';
   public static readonly createActor = 'api/movie/actor';
+  public static readonly deleteMovie = 'api/movie/:id';
 }

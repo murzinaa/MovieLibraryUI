@@ -19,4 +19,6 @@ public interface IMovieLibraryService
     public Task<int> CreateMovie(CreateMovie movie);
 
     public Task UpdateMovie(UpdateMovie movie);
+
+    public Task DeleteMovie(int id);
 }

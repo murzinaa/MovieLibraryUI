@@ -46,4 +46,8 @@ export class ClientService{
   addActor(actor: Actor): Observable<number>{
     return this.httpClient.post<number>(Urls.createActor, actor, this.httpOptions);
   }
+
+  deleteMovie(id: number){
+    return this.httpClient.get<MovieDetails>(Urls.deleteMovie.replace(':id', id.toString()));
+  }
 }

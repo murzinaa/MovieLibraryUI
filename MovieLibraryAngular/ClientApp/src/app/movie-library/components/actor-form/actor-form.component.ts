@@ -2,12 +2,12 @@ import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'app-add-actor',
-  templateUrl: 'add-actor.component.html',
-  styleUrls: ['add-actor.component.css']
+  selector: 'app-actor-form',
+  templateUrl: 'actor-form.component.html',
+  styleUrls: ['actor-form.component.css']
 })
 
-export class AddActorComponent{
+export class ActorFormComponent {
 
   @Output()
   public newActorEvent: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();

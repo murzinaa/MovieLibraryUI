@@ -6,9 +6,9 @@ import {Actor} from "../../models/actor";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MovieDetails} from "../../models/movieDetails";
 import {AddMovie} from "../../models/addMovie";
-import {AddActorComponent} from "./add-actor/add-actor.component";
-import {finalize, forkJoin} from "rxjs";
+import {forkJoin} from "rxjs";
 import {EditMovie} from "../../models/editMovie";
+import {ActorFormComponent} from "../actor-form/actor-form.component";
 
 @Component({
   selector: 'app-movie-upsert',
@@ -86,7 +86,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
 
     if (this.movie?.actors) {
       this.movie.actors.forEach(actor => {
-        this.actorsFormArray.push(AddActorComponent.addActorInfoItem(actor.name, actor.surname, actor.age, actor.id));
+        this.actorsFormArray.push(ActorFormComponent.addActorInfoItem(actor.name, actor.surname, actor.age, actor.id));
       });
       this.showActorsSection = true;
     }
@@ -167,7 +167,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
   }
 
   addActor() {
-    this.actorsFormArray.push(AddActorComponent.addActorInfoItem('', '', 0, 0))
+    this.actorsFormArray.push(ActorFormComponent.addActorInfoItem('', '', 0, 0))
     this.showDropdown = false;
     this.showAddActorsSection = false;
   }
@@ -176,7 +176,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
     const id = this.upsertMovieForm.controls.actorId.value;
     const data = this.actors.find(x => x.id == id);
     if (data) {
-      this.actorsFormArray.push(AddActorComponent.addActorInfoItem(data.name, data.surname, data.age, data.id));
+      this.actorsFormArray.push(ActorFormComponent.addActorInfoItem(data.name, data.surname, data.age, data.id));
       this.actorsFormArray.at(-1).disable();
       this.selectedActorIds.push(id);
     }

@@ -28,9 +28,9 @@ public class MovieLibraryClient : IMovieLibraryClient
         await _client.Call(request, request.Route, HttpMethod.Put);
     }
 
-    public Task DeleteMovie(DeleteMovieRequest request)
+    public async Task DeleteMovie(DeleteMovieRequest request)
     {
-        throw new NotImplementedException();
+        await _client.Call(request, request.GetRoute(), HttpMethod.Delete);
     }
 
     public async Task<GetMovieByIdResponse> GetMovieById(GetMovieByIdRequest request)

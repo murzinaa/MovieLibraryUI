@@ -67,4 +67,13 @@ public class MovieLibraryService : IMovieLibraryService
         var request = _mapper.Map<UpdateMovieRequest>(movie);
         await _movieClient.UpdateMovie(request);
     }
+
+    public async Task DeleteMovie(int id)
+    {
+        var request = new DeleteMovieRequest
+        {
+            MovieId = id
+        };
+        await _movieClient.DeleteMovie(request);
+    }
 }

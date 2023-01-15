@@ -7,20 +7,17 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
-import {
-  MovieLibraryOverviewComponent
-} from "./movie-library/components/movie-library-overview/movie-library-overview.component";
-import {
-  MovieLibraryDetailsComponent
-} from "./movie-library/components/movie-library-details/movie-library-details.component";
-import {
-  MovieLibrarySearchComponent
-} from "./movie-library/components/movie-library-search/movie-library-search.component";
-import {
-  MovieLibraryUpsertComponent
-} from "./movie-library/components/movie-library-upsert/movie-library-upsert.component";
+import {MovieLibraryOverviewComponent}
+  from "./movie-library/components/movie-library-overview/movie-library-overview.component";
+import {MovieLibraryDetailsComponent}
+  from "./movie-library/components/movie-library-details/movie-library-details.component";
+import {MovieLibrarySearchComponent}
+  from "./movie-library/components/movie-library-search/movie-library-search.component";
+import {MovieLibraryUpsertComponent}
+  from "./movie-library/components/movie-library-upsert/movie-library-upsert.component";
 import {MovieDetailsResolver} from "./movie-library/resolvers/movie-details-resolver.service";
-import {AddActorComponent} from "./movie-library/components/movie-library-upsert/add-actor/add-actor.component";
+import {ActorFormComponent} from "./movie-library/components/actor-form/actor-form.component";
+import {MovieFormComponent} from "./movie-library/components/movie-form/movie-form.component";
 
 @NgModule({
   declarations: [
@@ -30,7 +27,8 @@ import {AddActorComponent} from "./movie-library/components/movie-library-upsert
     MovieLibraryDetailsComponent,
     MovieLibrarySearchComponent,
     MovieLibraryUpsertComponent,
-    AddActorComponent
+    ActorFormComponent,
+    MovieFormComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
