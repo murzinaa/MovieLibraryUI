@@ -19,6 +19,8 @@ import {MovieDetailsResolver} from "./movie-library/resolvers/movie-details-reso
 import {ActorFormComponent} from "./movie-library/components/actor-form/actor-form.component";
 import {MovieFormComponent} from "./movie-library/components/movie-form/movie-form.component";
 import {NgxPaginationModule} from "ngx-pagination";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MaterialModule} from "./material.module";
 
 @NgModule({
   declarations: [
@@ -44,11 +46,14 @@ import {NgxPaginationModule} from "ngx-pagination";
       {path: 'movie/:id', component: MovieLibraryDetailsComponent, resolve: {movie: MovieDetailsResolver}}
     ]),
     ReactiveFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MaterialModule,
+    BrowserAnimationsModule
   ],
   providers: [MovieDetailsResolver],
   bootstrap: [AppComponent],
-  exports: []
+  exports: [
+  ]
 })
 export class AppModule { }
 

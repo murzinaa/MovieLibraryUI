@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ClientService} from "../../services/client.service";
-import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {DropdownOption} from "../../models/dropdown";
 import {Actor} from "../../models/actor";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -30,6 +30,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
   public description: FormControl;
   public genreId: FormControl;
   public rating: FormControl;
+  public imageUrl: FormControl;
   public actorsFormArray: FormArray;
 
   public actors: Actor[] = [];
@@ -77,11 +78,12 @@ export class MovieLibraryUpsertComponent implements OnInit {
   }
 
   private initializeFrom() {
-    this.title = new FormControl(this.movie?.title);
-    this.releaseYear = new FormControl(this.movie?.releaseYear);
+    this.title = new FormControl(this.movie?.title, Validators.required);
+    this.releaseYear = new FormControl(this.movie?.releaseYear, [Validators.required, Validators.min(1800), Validators.max(new Date().getFullYear())]);
     this.description = new FormControl(this.movie?.description);
     this.genreId = new FormControl(this.genreDropdownOptions.find(x => x.value == this.movie?.genreId)?.value);
-    this.rating = new FormControl(this.movie?.rating);
+    this.rating = new FormControl(this.movie?.rating, [Validators.required, Validators.min(1), Validators.max(100)]);
+    this.imageUrl = new FormControl(this.movie?.imageUrl);
     this.actorsFormArray = this.fb.array([]);
 
     if (this.movie?.actors) {
@@ -97,6 +99,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
       description: this.description,
       genreId: this.genreId,
       rating: this.rating,
+      imageUrl: this.imageUrl,
       actorsFormArray: this.actorsFormArray,
       actorId: new FormControl()
     });
@@ -123,6 +126,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
     movie.imageUrl = "";
     movie.actorIds = [];
     movie.description = this.description.value;
+    movie.imageUrl = this.imageUrl.value;
 
     actorForm.forEach(actor => {
       movie.actorIds.push(actor.id);
@@ -144,6 +148,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
     updateMovie.genreId = this.genreId.value;
     updateMovie.actorIds = [];
     updateMovie.description = this.description.value;
+    updateMovie.imageUrl = this.imageUrl.value;
     actorForm.forEach(actor => {
       updateMovie.actorIds.push(actor.id);
     })
@@ -154,7 +159,6 @@ export class MovieLibraryUpsertComponent implements OnInit {
   }
 
   cancel() {
-    // todo: implement the method
     const returnUrl = this.isANewMovie ? '/movie' : `/movie/${this.movieId}`;
     this.router.navigate([returnUrl]);
   }

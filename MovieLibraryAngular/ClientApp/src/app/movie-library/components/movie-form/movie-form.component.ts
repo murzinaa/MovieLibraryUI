@@ -15,4 +15,16 @@ export class MovieFormComponent {
 
   @Input()
   public genreDropdownOptions: DropdownOption<number>[];
+
+  get movieTitle(){
+    return this.movieForm.get('title');
+  }
+
+  get movieReleaseYear(){
+    return this.movieForm.get('releaseYear');
+  }
+
+  get movieRating(){
+    return this.movieForm.get('rating');
+  }
 }

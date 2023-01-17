@@ -1,34 +1,38 @@
-<div class="col-md-12">
-  <h3>{{isANewMovie ? 'Add A New Movie' : 'Edit Movie'}}</h3>
-</div>
+<mat-toolbar>
+  <span>{{isANewMovie ? 'Add A New Movie' : 'Edit Movie'}}</span>
+</mat-toolbar>
+<hr>
 <div>
   <form *ngIf="upsertMovieForm" [formGroup]="upsertMovieForm" (ngSubmit)="saveForm()" autocomplete="off">
     <app-movie-form [movieForm]="upsertMovieForm" [genreDropdownOptions]="genreDropdownOptions"></app-movie-form>
-      <!-- show existing/added actors -->
-      <div *ngIf="true" style="margin-top: 20px">
-        <h5 style="text-align: center">Actors:</h5><hr>
-        <div *ngFor="let actorForm of actorArray; let i = index">
+    <!-- show existing/added actors -->
+    <div *ngIf="true" style="margin-top: 20px">
+      <h5 style="text-align: center">Actors:</h5>
+      <hr>
+      <div *ngFor="let actorForm of actorArray; let i = index">
 
-          <app-actor-form [isANewActor]="!actorForm.disabled" [addActorForm]="actorForm" [index]="i"
-                         (newActorEvent)="saveActor($event, i)"
-                         (removeActorEvent)="removeActor($event)">
-          </app-actor-form>
-        </div>
-
+        <app-actor-form [isANewActor]="!actorForm.disabled" [addActorForm]="actorForm" [index]="i"
+                        (newActorEvent)="saveActor($event, i)"
+                        (removeActorEvent)="removeActor($event)">
+        </app-actor-form>
       </div>
-      <button *ngIf="!showAddActorsSection" type="button"
-              class="btn btn-primary" (click)="showAddActorFunctionality()">Add Actor</button>
-      <div *ngIf="showAddActorsSection">
-        You can either choose an actor from dropdown or
-        <button type="button" class="text-button" (click)="addActor()">add a new actor</button>
-        <br>
-        <select *ngIf="showDropdown" formControlName="actorId" (change)="onOptionSelected()">
-          <option *ngFor="let actor of actorsDropdownOptions" [ngValue]="actor.value">{{actor.text}}</option>
-        </select>
-      </div>
-    <br>
-    <button type="submit" class="btn btn-primary">Save</button>
-    <button type="button" [disabled]="false" class="btn btn-default" (click)="cancel()">Cancel</button>
+    </div>
+    <button *ngIf="!showAddActorsSection" type="button"
+            class="btn btn-primary" (click)="showAddActorFunctionality()">Add Actor
+    </button>
+    <div *ngIf="showAddActorsSection">
+      You can either choose an actor from dropdown or
+      <button class="text-button" type="button" (click)="addActor()">add a new actor</button>
+      <br>
+      <select *ngIf="showDropdown" formControlName="actorId" (change)="onOptionSelected()">
+        <option *ngFor="let actor of actorsDropdownOptions" [ngValue]="actor.value">{{actor.text}}</option>
+      </select>
+    </div>
+    <hr>
+    <div style="float: right">
+      <button type="submit" [disabled]="upsertMovieForm.invalid" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
+    </div>
   </form>
 </div>
 

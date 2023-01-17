@@ -1,5 +1,14 @@
 .text-button{
   border: none;
   background-color: inherit;
-  color: #0a53be;
+  color: #4350AFFF;
+}
+span {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+}
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: #4350AFFF !important;
+  border-color: #4350AFFF !important;
 }

@@ -1,8 +1,11 @@
-.box{
-  display: table-cell;
-  padding-right: 5px;
-}
-.wrapper {
-  display: table;
+.full-width-field {
   width: 100%;
+}
+
+td {
+  padding-right: 8px;
+}
+
+.mat-input-element:disabled {
+  color: black;
 }

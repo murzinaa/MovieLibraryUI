@@ -5,6 +5,6 @@ export class EditMovie{
   public description: string;
   public genreId: number;
   public rating: number;
-  // public imageUrl?: string;
+  public imageUrl?: string;
   public actorIds: number[];
 }

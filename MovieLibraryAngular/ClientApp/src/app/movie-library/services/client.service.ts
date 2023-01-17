@@ -48,6 +48,6 @@ export class ClientService{
   }
 
   deleteMovie(id: number){
-    return this.httpClient.get<MovieDetails>(Urls.deleteMovie.replace(':id', id.toString()));
+    return this.httpClient.delete(Urls.deleteMovie.replace(':id', id.toString()));
   }
 }

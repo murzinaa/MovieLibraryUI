@@ -5,18 +5,14 @@
               totalItems: totalPages
             }" class="col-sm-3">
     <div class="card h-100">
-      <div class="card-body">
-        <img class="card-img-top" [src]="movie.imageUrl ?? 'https://media.istockphoto.com/id/1216251206/vector/no-image-available-icon.jpg?b=1&s=170667a&w=0&k=20&c=MiWLEcUdxZONMlnsN_k5OCaz_nLviJB0Hvcz5Wlp5oI='" [alt]="movie.title" width="250" height="350"/>
+      <div class="card-body d-flex flex-column">
+        <img class="card-img-top"
+             [src]="movie.imageUrl ?? defaultImageUrl"
+             [alt]="movie.title" width="250" height="350"/>
         <h5 class="card-title">{{movie.title}}</h5>
-        <p class="card-text">{{movie.description?.slice(0,70)}}...</p>
-        <a class="btn btn-primary mr-2" type="button" [routerLink]="'/movie/'+movie.id.toString()">Go to details</a>
+        <button class="mt-auto" type="button" [routerLink]="'/movie/'+movie.id.toString()">Go to details</button>
       </div>
     </div>
   </div>
-  <pagination-controls previousLabel="Prev"
-                       nextLabel="Next"
-                       [responsive]="true"
-                       (pageChange)="getMovies($event)">
-  </pagination-controls>
+  <pagination-controls [responsive]="true" (pageChange)="getMovies($event)"></pagination-controls>
 </div>
-

@@ -1,20 +1,41 @@
-<div class="wrapper">
+<div style="margin-bottom: 20px;">
   <form [formGroup]="addActorForm" autocomplete="off" (ngSubmit)="addNewActor(addActorForm)">
-    <div style="margin-bottom: 15px">
-      <div class="box">
-        <label for="firstName">First Name:</label>
-        <input formControlName="firstName" id="firstname" type="text" class="form-control" placeholder="Enter first name"/>
-      </div>
-      <div class="box">
-        <label for="lastName">Last Name:</label>
-        <input formControlName="lastName" id="lastName" type="text" class="form-control" placeholder="Enter last name"/>
-      </div>
-      <div class="box">
-        <label for="age">Age:</label>
-        <input formControlName="age" id="age" type="number" class="form-control" placeholder="Enter age"/>
-      </div>
+    <div>
+      <table>
+        <tr>
+          <td>
+            <mat-form-field class="full-width-field" appearance="fill">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstName" type="text" laceholder="Enter first name"/>
+              <mat-error *ngIf="actorFirstName?.invalid && actorFirstName?.dirty">
+                First name is required
+              </mat-error>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="full-width-field" appearance="fill">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastName" type="text" placeholder="Enter last name"/>
+              <mat-error *ngIf="actorLastName?.invalid && actorLastName?.dirty">
+                Last name is required
+              </mat-error>
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field class="full-width-field" appearance="fill">
+              <mat-label>Age</mat-label>
+              <input matInput formControlName="age" id="age" type="number" placeholder="Enter age"/>
+              <mat-error *ngIf="actorAge?.invalid && actorAge?.dirty">
+                Age range is 1-120 years
+              </mat-error>
+            </mat-form-field>
+          </td>
+        </tr>
+      </table>
+      <button [hidden]="!isANewActor" [disabled]="addActorForm.invalid" type="submit" class="btn btn-primary">Save
+      </button>
+      <button [hidden]="isANewActor" type="button" class="btn btn-outline-danger" (click)="removeActor(index)">Delete
+      </button>
     </div>
-    <button [hidden]="!isANewActor" type="submit" class="btn btn-primary">Save</button>
-    <button [hidden]="isANewActor" type="button" class="btn btn-primary" (click)="removeActor(index)">Delete</button>
   </form>
 </div>

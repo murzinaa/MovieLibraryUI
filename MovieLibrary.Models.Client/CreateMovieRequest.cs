@@ -16,6 +16,8 @@ namespace MovieLibrary.Models.Client
         
         public int Rating { get; set; }
 
+        public string ImageUrl { get; set; }
+
         public List<int> ActorIds { get; set; }
     }
 }
