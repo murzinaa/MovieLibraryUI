@@ -1,7 +1,9 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using MovieLibrary.Application.Helpers;
+using MovieLibrary.Application.Helpers.Models;
 using MovieLibrary.Infrastructure.Clients;
 using MovieLibrary.Models.Client;
 
@@ -20,7 +22,7 @@ public class MovieLibraryClient : IMovieLibraryClient
     public async Task<int> CreateMovie(CreateMovieRequest request)
     {
         var response = await _client.Call<CreateMovieRequest, CreateMovieResponse>(request, request.Route, HttpMethod.Post);
-        return response.Id;
+        return response.Data.Id;
     }
 
     public async Task UpdateMovie(UpdateMovieRequest request)
@@ -36,13 +38,14 @@ public class MovieLibraryClient : IMovieLibraryClient
     public async Task<GetMovieByIdResponse> GetMovieById(GetMovieByIdRequest request)
     {
         var response = await _client.Call<GetMovieByIdRequest, GetMovieByIdResponse>(request, request.GetRoute(), HttpMethod.Get);
-        return response;
+        ValidateResponse(response);
+        return response.Data;
     }
 
     public async Task<GetAllMoviesResponse> GetAllMovies(GetAllMoviesRequest request)
     {
         var response = await _client.Call<GetAllMoviesRequest, GetAllMoviesResponse>(request, request.GetRoute(), HttpMethod.Get);
-        return response;
+        return response.Data;
     }
 
     public Task<GetSimilarMoviesResponse> GetSimilarMovies(GetSimilarMoviesRequest request)
@@ -53,20 +56,28 @@ public class MovieLibraryClient : IMovieLibraryClient
     public async Task<GetGenresResponse> GetGenres(GetGenresRequest request)
     {
         var response = await _client.Call<GetGenresRequest, GetGenresResponse>(request, request.Route, HttpMethod.Get);
-        return response;
+        return response.Data;
     }
 
     public async Task<GetActorsResponse> GetActors(GetActorsRequest request)
     {
         var response = await _client.Call<GetActorsRequest, GetActorsResponse>(request, request.Route, HttpMethod.Get);
-        return response;
+        return response.Data;
     }
 
     public async Task<AddActorResponse> AddActor(AddActorRequest request)
     {
 
         var response = await _client.Call<AddActorRequest, AddActorResponse>(request, request.Route, HttpMethod.Post);
-        return response;
+        return response.Data;
 
+    }
+
+    private void ValidateResponse(ResponseBase response)
+    {
+        if (response.StatusCode != HttpStatusCode.OK)
+        {
+            throw new ApiCallException(response.ErrorMessage, response.StatusCode);
+        }
     }
 }

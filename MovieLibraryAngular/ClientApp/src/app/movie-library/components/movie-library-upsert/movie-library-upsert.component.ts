@@ -9,6 +9,7 @@ import {AddMovie} from "../../models/addMovie";
 import {forkJoin} from "rxjs";
 import {EditMovie} from "../../models/editMovie";
 import {ActorFormComponent} from "../actor-form/actor-form.component";
+import {NotificationService} from "../../services/notification.service";
 
 @Component({
   selector: 'app-movie-upsert',
@@ -43,7 +44,11 @@ export class MovieLibraryUpsertComponent implements OnInit {
 
   public movieId: string | null;
 
-  constructor(private service: ClientService, private route: ActivatedRoute, private fb: FormBuilder, private router: Router) {
+  constructor(private service: ClientService,
+              private route: ActivatedRoute,
+              private fb: FormBuilder,
+              private router: Router,
+              private notifyService: NotificationService) {
   }
 
   ngOnInit(): void {
@@ -133,6 +138,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
     })
 
     this.service.createMovie(movie).subscribe(id => {
+      this.notifyService.showSuccess('Movie added successfully', 'Success');
       this.router.navigate([`/movie/${id}`]);
     });
   }
@@ -155,6 +161,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
 
     this.service.updateMovie(updateMovie).subscribe(() => {
       this.router.navigate([`/movie/${this.movieId}`]);
+      this.notifyService.showSuccess('Movie updated successfully', 'Success');
     });
   }
 

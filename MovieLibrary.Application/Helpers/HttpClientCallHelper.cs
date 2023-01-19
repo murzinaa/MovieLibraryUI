@@ -2,14 +2,16 @@ using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using MovieLibrary.Application.Helpers.Models;
 using Newtonsoft.Json;
 
 namespace MovieLibrary.Application.Helpers;
 
 public static class HttpClientBase
 {
-    public static async Task<T2> Call<T, T2>(this HttpClient httpClient, T request, string route, HttpMethod method)
+    public static async Task<Response<T2>> Call<T, T2>(this HttpClient httpClient, T request, string route, HttpMethod method)
     {
+        Response<T2> response;
         string serializedRequest = SerializeObject(request);
         
         var methodUrl = $"{httpClient.BaseAddress}{route.Trim('/')}";
@@ -25,8 +27,19 @@ public static class HttpClientBase
             RequestUri = new Uri(methodUrl),
         };
         var res = await httpClient.SendAsync(message);
+        
+        if (res.IsSuccessStatusCode)
+        {
+            var data = await DeserializeResponse<T2>(res);
+            response = new Response<T2>(data, res.StatusCode, null);
+        }
+        else
+        {
+            var errorMessage = await res.Content.ReadAsStringAsync();
+            response = new Response<T2>(res.StatusCode, errorMessage);
+        }
 
-        return await DeserializeResponse<T2>(res);
+        return response; //await DeserializeResponse<T2>(res);
     }
     
     public static async Task Call<T>(this HttpClient httpClient, T request, string route, HttpMethod method)

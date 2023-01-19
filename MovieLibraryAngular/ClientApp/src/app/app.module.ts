@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -21,6 +21,8 @@ import {MovieFormComponent} from "./movie-library/components/movie-form/movie-fo
 import {NgxPaginationModule} from "ngx-pagination";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {MaterialModule} from "./material.module";
+import {ToastrModule} from "ngx-toastr";
+import {HttpErrorInterceptor} from "./movie-library/error-handling/http-error.interceptor";
 
 @NgModule({
   declarations: [
@@ -48,9 +50,17 @@ import {MaterialModule} from "./material.module";
     ReactiveFormsModule,
     NgxPaginationModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
-  providers: [MovieDetailsResolver],
+  providers: [
+    MovieDetailsResolver,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
   exports: [
   ]
