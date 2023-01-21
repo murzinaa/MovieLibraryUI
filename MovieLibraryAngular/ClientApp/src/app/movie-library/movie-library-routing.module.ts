@@ -1,7 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
-import {MovieLibraryOverviewComponent, MovieLibraryUpsertComponent, MovieLibraryDetailsComponent} from './components'
+import {
+  MovieLibraryOverviewComponent,
+  MovieLibraryUpsertComponent,
+  MovieLibraryDetailsComponent,
+  MovieLibrarySearchComponent
+} from './components'
 import {MovieDetailsResolver} from "./resolvers/movie-details-resolver.service";
 
 @NgModule({
@@ -17,6 +22,10 @@ import {MovieDetailsResolver} from "./resolvers/movie-details-resolver.service";
       {
         path: 'movie',
         component: MovieLibraryOverviewComponent
+      },
+      {
+        path: 'movie/search',
+        component: MovieLibrarySearchComponent
       },
       {
         path: 'movie/upsert',

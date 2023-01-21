@@ -1,6 +1,5 @@
 export * from './movie-library-upsert/index'
-export * from './movie-form/index'
-export * from './actor-form/index'
+export * from './shared/index'
 export * from './movie-library-details/index'
 export * from './movie-library-overview/index'
 export * from './movie-library-search/index'

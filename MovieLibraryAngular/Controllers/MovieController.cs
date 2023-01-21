@@ -23,9 +23,9 @@ public class MovieController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<GetAllMoviesResponse> GetMovies([FromQuery] int pageNumber = 1, [FromQuery]int pageSize = 20)
+    public async Task<GetAllMoviesResponse> GetMovies([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 20)
     {
-        var movies = await _movieService.GetAllMovies(pageNumber, pageSize); 
+        var movies = await _movieService.GetAllMovies(pageNumber, pageSize);
         return _mapper.Map<GetAllMoviesResponse>(movies);
     }
 
@@ -75,5 +75,23 @@ public class MovieController : ControllerBase
     public async Task DeleteMovie(int id)
     {
         await _movieService.DeleteMovie(id);
+    }
+
+    [HttpPost("search")]
+    public async Task<SearchMoviesResponse> SearchMovie([FromBody] SearchMoviesRequest request, [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 20)
+    {
+        var searchCriteria = new SearchCriteria
+        {
+            PageNumber = pageNumber,
+            PageSize = pageSize,
+            Title = request.Title,
+            ReleaseYear = request.ReleaseYear,
+            ActorIds = request.ActorIds,
+            GenreIds = request.GenreIds
+        };
+
+        var movies = await _movieService.SearchMovies(searchCriteria);
+        return _mapper.Map<SearchMoviesResponse>(movies);
     }
 }

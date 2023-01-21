@@ -8,8 +8,8 @@ import {MovieDetails} from "../../models/movieDetails";
 import {AddMovie} from "../../models/addMovie";
 import {forkJoin} from "rxjs";
 import {EditMovie} from "../../models/editMovie";
-import {ActorFormComponent} from "../actor-form/actor-form.component";
 import {NotificationService} from "../../services/notification.service";
+import {ActorFormComponent} from "../shared";
 
 @Component({
   selector: 'app-movie-upsert',
@@ -201,7 +201,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
     actor.surname = form.controls.lastName.value;
     actor.age = form.controls.age.value;
 
-    // what if we don't pass an id??
+    // what if I don't pass an id??
     actor.id = 0;
     this.service.addActor(actor).subscribe(id => {
       this.actorsFormArray.at(index).patchValue({

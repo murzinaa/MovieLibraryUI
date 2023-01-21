@@ -1,0 +1,33 @@
+<form [formGroup]="searchForm" autocomplete="off" (ngSubmit)="searchMovies()">
+  <mat-form-field class="full-width-field" appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" type="text"/>
+  </mat-form-field>
+  <table class="full-width-field ">
+    <tr>
+      <td>
+        <mat-form-field class="full-width-field" appearance="outline">
+          <mat-label>ReleaseYear</mat-label>
+          <input matInput formControlName="releaseYear" type="number"/>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="full-width-field" appearance="outline">
+          <mat-label>Genres</mat-label>
+          <mat-select formControlName="genreIds" [multiple]="true">
+            <mat-option *ngFor="let genre of genres" [value]="genre.value">{{genre.text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field class="full-width-field" appearance="outline">
+          <mat-label>Actors</mat-label>
+          <mat-select formControlName="actorIds" [multiple]="true">
+            <mat-option *ngFor="let actor of actors" [value]="actor.value">{{actor.text}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  <button class="btn btn-primary" [disabled]="searchForm.invalid" type="submit">Search</button>
+</form>

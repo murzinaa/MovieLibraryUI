@@ -45,6 +45,7 @@ public class MovieLibraryClient : IMovieLibraryClient
     public async Task<GetAllMoviesResponse> GetAllMovies(GetAllMoviesRequest request)
     {
         var response = await _client.Call<GetAllMoviesRequest, GetAllMoviesResponse>(request, request.GetRoute(), HttpMethod.Get);
+        ValidateResponse(response);
         return response.Data;
     }
 
@@ -56,21 +57,30 @@ public class MovieLibraryClient : IMovieLibraryClient
     public async Task<GetGenresResponse> GetGenres(GetGenresRequest request)
     {
         var response = await _client.Call<GetGenresRequest, GetGenresResponse>(request, request.Route, HttpMethod.Get);
+        ValidateResponse(response);
         return response.Data;
     }
 
     public async Task<GetActorsResponse> GetActors(GetActorsRequest request)
     {
         var response = await _client.Call<GetActorsRequest, GetActorsResponse>(request, request.Route, HttpMethod.Get);
+        ValidateResponse(response);
         return response.Data;
     }
 
     public async Task<AddActorResponse> AddActor(AddActorRequest request)
     {
-
         var response = await _client.Call<AddActorRequest, AddActorResponse>(request, request.Route, HttpMethod.Post);
+        ValidateResponse(response);
         return response.Data;
 
+    }
+
+    public async Task<SearchMoviesResponse> SearchMovies(SearchMoviesRequest request)
+    {
+        var response = await _client.Call<SearchMoviesRequest, SearchMoviesResponse>(request, request.GetRoute(), HttpMethod.Post);
+        ValidateResponse(response);
+        return response.Data;
     }
 
     private void ValidateResponse(ResponseBase response)

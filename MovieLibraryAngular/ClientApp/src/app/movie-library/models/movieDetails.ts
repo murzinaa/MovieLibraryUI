@@ -7,6 +7,6 @@ export class MovieDetails{
   public description?: string;
   public genreId: number;
   public rating: number;
-  public imageUrl?: number;
+  public imageUrl?: string;
   public actors: Actor[];
 }

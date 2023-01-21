@@ -4,12 +4,14 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {
-  ActorFormComponent,
-  MovieFormComponent,
   MovieLibraryDetailsComponent,
   MovieLibraryOverviewComponent,
   MovieLibraryUpsertComponent,
-  MovieLibrarySearchComponent
+  MovieLibrarySearchComponent,
+  ActorFormComponent,
+  MovieFormComponent,
+  MovieListComponent,
+  SearchFormComponent
 } from "./components";
 import {MovieLibraryRoutingModule} from "./movie-library-routing.module";
 import {NgxPaginationModule} from "ngx-pagination";
@@ -27,6 +29,8 @@ import {MovieDetailsResolver} from "./resolvers/movie-details-resolver.service";
     MovieLibraryOverviewComponent,
     MovieLibraryUpsertComponent,
     MovieLibrarySearchComponent,
+    MovieListComponent,
+    SearchFormComponent
   ],
   imports: [
     CommonModule,

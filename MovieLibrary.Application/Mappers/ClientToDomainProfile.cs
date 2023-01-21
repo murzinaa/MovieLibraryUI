@@ -15,5 +15,7 @@ public class ClientToDomainProfile : Profile
         CreateMap<Models.Client.Models.Comment, Models.Domain.Comment>();
         
         CreateMap<Models.Client.Models.Genre, Models.Domain.Genre>();
+        
+        CreateMap<Models.Client.SearchMoviesResponse, Models.Domain.GetAllMovies>();
     }   
 }

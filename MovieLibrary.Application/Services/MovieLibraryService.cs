@@ -82,4 +82,11 @@ public class MovieLibraryService : IMovieLibraryService
         };
         await _movieClient.DeleteMovie(request);
     }
+
+    public async Task<GetAllMovies> SearchMovies(SearchCriteria searchCriteria)
+    {
+        var request = _mapper.Map<SearchMoviesRequest>(searchCriteria);
+        var movies = await _movieClient.SearchMovies(request);
+        return _mapper.Map<GetAllMovies>(movies);
+    }
 }

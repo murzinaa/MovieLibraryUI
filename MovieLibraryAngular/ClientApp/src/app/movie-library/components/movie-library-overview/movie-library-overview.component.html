@@ -1,18 +1,1 @@
-<div class="row">
-  <div style="margin-bottom: 20px" *ngFor="let movie of movies| paginate: {
-              itemsPerPage: pageSize,
-              currentPage: pageNumber,
-              totalItems: totalPages
-            }" class="col-sm-3">
-    <div class="card h-100">
-      <div class="card-body d-flex flex-column">
-        <img class="card-img-top"
-             [src]="movie.imageUrl ?? defaultImageUrl"
-             [alt]="movie.title" width="250" height="350"/>
-        <h5 class="card-title">{{movie.title}}</h5>
-        <button class="mt-auto" type="button" [routerLink]="'/movie/'+movie.id.toString()">Go to details</button>
-      </div>
-    </div>
-  </div>
-  <pagination-controls [responsive]="true" (pageChange)="getMovies($event)"></pagination-controls>
-</div>
+<app-movie-list [movie]="movieModel" (getMoviesEvent)="getMovies($event)"></app-movie-list>

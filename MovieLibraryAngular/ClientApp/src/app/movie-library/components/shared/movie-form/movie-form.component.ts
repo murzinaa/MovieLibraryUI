@@ -1,6 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {FormGroup} from "@angular/forms";
-import {DropdownOption} from "../../models/dropdown";
+import {DropdownOption} from "../../../models/dropdown";
 
 @Component({
   selector: 'app-movie-form',

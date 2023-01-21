@@ -13,5 +13,7 @@ public class DomainToClientProfile : Profile
         CreateMap<CreateMovie, CreateMovieRequest>();
 
         CreateMap<UpdateMovie, UpdateMovieRequest>();
+
+        CreateMap<SearchCriteria, SearchMoviesRequest>();
     }
 }

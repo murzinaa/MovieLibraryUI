@@ -23,4 +23,6 @@ public interface IMovieLibraryClient
 
     public Task<AddActorResponse> AddActor(AddActorRequest request);
 
+    public Task<SearchMoviesResponse> SearchMovies(SearchMoviesRequest request);
+
 }

@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="col-12">
+  <div class="card mt-2">
+    <div class="card-header">
+      Search movies
+    </div>
+    <div class="card-body">
+      <app-search-form (searchMoviesEvent)="searchMovies($event)"></app-search-form>
+    </div>
+  </div>
+  <br>
+  <app-movie-list *ngIf="showResults" [movie]="movieOverview" (getMoviesEvent)="getMovies($event)"></app-movie-list>
+</div>

@@ -8,6 +8,7 @@ import {Actor} from "../models/actor";
 import {AddMovie} from "../models/addMovie";
 import {EditMovie} from "../models/editMovie";
 import {MovieOverview} from "../models/movie-overview/movie-overview";
+import {SearchCriteria} from "../models/search-criteria";
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +50,9 @@ export class ClientService{
 
   deleteMovie(id: number){
     return this.httpClient.delete(Urls.deleteMovie.replace(':id', id.toString()));
+  }
+
+  searchMovies(request: SearchCriteria, pageNumber: number, pageSize: number): Observable<MovieOverview>{
+    return this.httpClient.post<MovieOverview>(Urls.searchMovie + `?PageNumber=${pageNumber}&PageSize=${pageSize}`, request);
   }
 }

@@ -17,5 +17,7 @@ public class DomainToContract : Profile
         CreateMap<MovieLibrary.Models.Domain.Genre, MovieLibrary.Models.Contracts.Models.Genre>();
 
         CreateMap<MovieLibrary.Models.Domain.GetAllMovies, MovieLibrary.Models.Contracts.GetAllMoviesResponse>();
+        
+        CreateMap<MovieLibrary.Models.Domain.GetAllMovies, MovieLibrary.Models.Contracts.SearchMoviesResponse>();
     }
 }
