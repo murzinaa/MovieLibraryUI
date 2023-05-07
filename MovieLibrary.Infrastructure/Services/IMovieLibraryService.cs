@@ -23,4 +23,6 @@ public interface IMovieLibraryService
     public Task DeleteMovie(int id);
 
     public Task<GetAllMovies> SearchMovies(SearchCriteria searchCriteria);
+
+    public Task<Genre> GetGenreById(int id);
 }

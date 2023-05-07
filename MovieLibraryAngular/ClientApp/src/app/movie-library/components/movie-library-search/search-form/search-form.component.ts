@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from "@angular/core";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {DropdownOption} from "../../../models/dropdown";
 import {ClientService} from "../../../services/client.service";
 import {SearchCriteria} from "../../../models/search-criteria";

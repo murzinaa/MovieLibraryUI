@@ -8,6 +8,7 @@ import {ToastrModule} from "ngx-toastr";
 import {HttpErrorInterceptor} from "./movie-library/error-handling/http-error.interceptor";
 import {RouterModule} from "@angular/router";
 import {AppRoutingModule} from "./app-routing.module";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {AppRoutingModule} from "./app-routing.module";
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [
     {

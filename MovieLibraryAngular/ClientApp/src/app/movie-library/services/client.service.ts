@@ -55,4 +55,8 @@ export class ClientService{
   searchMovies(request: SearchCriteria, pageNumber: number, pageSize: number): Observable<MovieOverview>{
     return this.httpClient.post<MovieOverview>(Urls.searchMovie + `?PageNumber=${pageNumber}&PageSize=${pageSize}`, request);
   }
+
+  getGenreById(id: number): Observable<Genre>{
+    return this.httpClient.get<Genre>(Urls.getGenreById + id.toString());
+  }
 }

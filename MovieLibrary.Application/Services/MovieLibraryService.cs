@@ -89,4 +89,10 @@ public class MovieLibraryService : IMovieLibraryService
         var movies = await _movieClient.SearchMovies(request);
         return _mapper.Map<GetAllMovies>(movies);
     }
+
+    public async Task<Genre> GetGenreById(int id)
+    {
+        var response = await _movieClient.GetGenreById(new GetGenreByIdRequest { Id = id });
+        return _mapper.Map<Genre>(response.Genre);
+    }
 }

@@ -8,5 +8,12 @@
     </div>
   </div>
   <br>
-  <app-movie-list *ngIf="showResults" [movie]="movieOverview" (getMoviesEvent)="getMovies($event)"></app-movie-list>
+  <div *ngIf="showAlert">
+    <ngb-alert [dismissible]="false" type="secondary">
+      <strong>Movies found: </strong> {{movieOverview.totalRecords}}
+    </ngb-alert>
+  </div>
+  <div *ngIf="showResults">
+    <app-movie-list [movie]="movieOverview" (getMoviesEvent)="getMovies($event)"></app-movie-list>
+  </div>
 </div>

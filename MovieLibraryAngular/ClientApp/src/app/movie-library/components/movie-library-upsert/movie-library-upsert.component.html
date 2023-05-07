@@ -24,9 +24,9 @@
       You can either choose an actor from dropdown or
       <button class="text-button" type="button" (click)="addActor()">add a new actor</button>
       <br>
-      <select *ngIf="showDropdown" formControlName="actorId" (change)="onOptionSelected()">
-        <option *ngFor="let actor of actorsDropdownOptions" [ngValue]="actor.value">{{actor.text}}</option>
-      </select>
+        <select *ngIf="showDropdown" formControlName="actorId" (change)="onOptionSelected()">
+          <option *ngFor="let actor of actorsDropdownOptions" [ngValue]="actor.value">{{actor.text}}</option>
+        </select>
     </div>
     <hr>
     <div style="float: right">

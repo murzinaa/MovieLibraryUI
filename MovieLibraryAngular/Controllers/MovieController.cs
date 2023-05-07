@@ -94,4 +94,11 @@ public class MovieController : ControllerBase
         var movies = await _movieService.SearchMovies(searchCriteria);
         return _mapper.Map<SearchMoviesResponse>(movies);
     }
+
+    [HttpGet("genre/{id}")]
+    public async Task<Genre> GetGenreById(int id)
+    {
+        var genre = await _movieService.GetGenreById(id);
+        return _mapper.Map<Genre>(genre);
+    }
 }

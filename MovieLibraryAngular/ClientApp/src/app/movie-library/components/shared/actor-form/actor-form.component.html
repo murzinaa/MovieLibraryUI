@@ -21,15 +21,6 @@
               </mat-error>
             </mat-form-field>
           </td>
-          <td>
-            <mat-form-field class="full-width-field" appearance="fill">
-              <mat-label>Age</mat-label>
-              <input matInput formControlName="age" id="age" type="number" placeholder="Enter age"/>
-              <mat-error *ngIf="actorAge?.invalid && actorAge?.dirty">
-                Age range is 1-120 years
-              </mat-error>
-            </mat-form-field>
-          </td>
         </tr>
       </table>
       <button [hidden]="!isANewActor" [disabled]="addActorForm.invalid" type="submit" class="btn btn-primary">Save

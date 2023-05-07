@@ -17,6 +17,7 @@ import {MovieLibraryRoutingModule} from "./movie-library-routing.module";
 import {NgxPaginationModule} from "ngx-pagination";
 import {MaterialModule} from "../material.module";
 import {MovieDetailsResolver} from "./resolvers/movie-details-resolver.service";
+import {NgbAlertModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   providers: [
@@ -40,7 +41,8 @@ import {MovieDetailsResolver} from "./resolvers/movie-details-resolver.service";
     FormsModule,
     MovieLibraryRoutingModule,
     NgxPaginationModule,
-    MaterialModule
+    MaterialModule,
+    NgbAlertModule
   ],
 })
 export class MovieLibraryModule {

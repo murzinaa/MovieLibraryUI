@@ -83,6 +83,13 @@ public class MovieLibraryClient : IMovieLibraryClient
         return response.Data;
     }
 
+    public async Task<GetGenreByIdResponse> GetGenreById(GetGenreByIdRequest request)
+    {
+        var response = await _client.Call<GetGenreByIdRequest, GetGenreByIdResponse>(request, request.GetRoute(), HttpMethod.Get);
+        ValidateResponse(response);
+        return response.Data;
+    }
+
     private void ValidateResponse(ResponseBase response)
     {
         if (response.StatusCode != HttpStatusCode.OK)

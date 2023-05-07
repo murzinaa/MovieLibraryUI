@@ -25,4 +25,6 @@ public interface IMovieLibraryClient
 
     public Task<SearchMoviesResponse> SearchMovies(SearchMoviesRequest request);
 
+    public Task<GetGenreByIdResponse> GetGenreById(GetGenreByIdRequest request);
+
 }

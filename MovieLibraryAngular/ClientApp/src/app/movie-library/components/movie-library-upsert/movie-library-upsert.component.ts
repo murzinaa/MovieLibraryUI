@@ -93,7 +93,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
 
     if (this.movie?.actors) {
       this.movie.actors.forEach(actor => {
-        this.actorsFormArray.push(ActorFormComponent.addActorInfoItem(actor.name, actor.surname, actor.age, actor.id));
+        this.actorsFormArray.push(ActorFormComponent.addActorInfoItem(actor.name, actor.surname, actor.id));
       });
       this.showActorsSection = true;
     }
@@ -178,7 +178,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
   }
 
   addActor() {
-    this.actorsFormArray.push(ActorFormComponent.addActorInfoItem('', '', 0, 0))
+    this.actorsFormArray.push(ActorFormComponent.addActorInfoItem('', '', 0))
     this.showDropdown = false;
     this.showAddActorsSection = false;
   }
@@ -187,7 +187,7 @@ export class MovieLibraryUpsertComponent implements OnInit {
     const id = this.upsertMovieForm.controls.actorId.value;
     const data = this.actors.find(x => x.id == id);
     if (data) {
-      this.actorsFormArray.push(ActorFormComponent.addActorInfoItem(data.name, data.surname, data.age, data.id));
+      this.actorsFormArray.push(ActorFormComponent.addActorInfoItem(data.name, data.surname, data.id));
       this.actorsFormArray.at(-1).disable();
       this.selectedActorIds.push(id);
     }
@@ -199,7 +199,6 @@ export class MovieLibraryUpsertComponent implements OnInit {
     const actor = new Actor();
     actor.name = form.controls.firstName.value;
     actor.surname = form.controls.lastName.value;
-    actor.age = form.controls.age.value;
 
     // what if I don't pass an id??
     actor.id = 0;
@@ -207,7 +206,6 @@ export class MovieLibraryUpsertComponent implements OnInit {
       this.actorsFormArray.at(index).patchValue({
         firstName: form.controls.firstName.value,
         lastName: form.controls.lastName.value,
-        age: form.controls.age.value,
         id: id
       });
     });
