@@ -18,7 +18,7 @@ public class Program
         builder.Services.AddControllersWithViews();
         builder.Services.AddHttpClient<IMovieLibraryClient, MovieLibraryClient>((client, provider) =>
         {
-            provider.BaseAddress = new Uri("http://localhost:8081/");
+            provider.BaseAddress = new Uri(builder.Configuration.GetValue<string>("MovieLibraryApi"));
         });
         builder.Services.AddScoped<IMovieLibraryService, MovieLibraryService>();
         
